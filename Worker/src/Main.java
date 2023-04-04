@@ -3,8 +3,8 @@ public class Main {
         OnTaskDoneListener listener = System.out::println;
         OnTaskErrorListner errorListner = System.out::println;
         Worker worker = new Worker(listener,errorListner);
-        //worker.start();
-        worker.onError();
+        worker.start();
+
     }
 
     public static class Worker {
@@ -16,17 +16,12 @@ public class Main {
             this.errorCallback = errorCallback;
             this.callback = callback;
         }
-        public void onError(){
-            for(int i = 0;i < 100;i++){
-                if(i == 33){
-                    errorCallback.onError( i +" Произошла ошибка");
-                }else{
-                    callback.OnDone("Task " + i + " is Done");
-                }
-            }
-        }
+
         public void start() {
             for (int i = 0; i < 100; i++) {
+                if(i == 33){
+                    errorCallback.onError( "В реализации " + i + " произошла ошибка");
+                }
                 callback.OnDone("Task " + i + " is Done");
             }
         }
